@@ -7,11 +7,27 @@ api_key = input('paste your api key: ')
 
 base = "https://localts.store/v1/"
 headers = {'X-API-Key': api_key}
+lol = ''
 
 r = requests.get(base + "me", headers=headers)
 data = r.json()
 
-print("you are logged in as: " + data.get("username"))
+print("you are logged in as: " + data.get("username") + "\n")
+
+print("=========================================")
+print("      YOU CAN GET A 5% DISCOUNT ON       ")
+print("   YOUR LOCALTS ORDER, BUT IT PROBABLY   ")
+print("            VIOLATES THE TOS             ")
+print("=========================================")
+print("\nit is done by spoofing your requests as coming from rise client, which applies a discount to your order")
+print("i am not responsible if you get in trouble for doing this\n")
+
+localtsgodbypass = input("save money? (y/n): ")
+
+if localtsgodbypass == "y":
+	headers = {'X-API-Key': api_key, 'User-Agent': 'Rise-Client/6.7.10'}
+	lol = '&campaign=rise'
+	# dont worry i already know this is a terrible and stupid way of doing this
 
 r = requests.get(base + "products", headers=headers)
 data = r.json()
@@ -40,7 +56,7 @@ for product in data.get("products", []):
 		print("purchasing the account now...")
 		prod_id = product.get("id")
 
-		r = requests.post(base + "products/" + prod_id + "/purchase?amount=1", headers=headers)
+		r = requests.post(base + "products/" + prod_id + "/purchase?amount=1" + lol, headers=headers)
 		data = r.json()
 
 		order_id = data.get("orderId")
@@ -51,7 +67,7 @@ for product in data.get("products", []):
 
 		print("purchased, order id: " + str(order_id))
 
-		r = requests.get(base + "orders/get-order?id=" + str(order_id), headers=headers)
+		r = requests.get(base + "orders/get-order?id=" + str(order_id) + lol, headers=headers)
 		data = r.json()
 
 		while data.get("order-status") != "COMPLETE":
@@ -62,7 +78,7 @@ for product in data.get("products", []):
 			print("waiting for order to complete...")
 			time.sleep(2)
 
-			r = requests.get(base + "orders/get-order?id=" + str(order_id), headers=headers)
+			r = requests.get(base + "orders/get-order?id=" + str(order_id) + lol, headers=headers)
 			data = r.json()
 
 		print("order completed!! content:\n\n")
