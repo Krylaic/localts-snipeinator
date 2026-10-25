@@ -2,8 +2,17 @@
 
 import requests
 import time
+import os
 
-api_key = input('paste your api key: ')
+api_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "api.txt")
+api_key = None
+if os.path.exists(api_file):
+	with open(api_file, "r", encoding="utf-8") as file:
+		api_key = file.read().strip()
+		print("got api key from api.txt")
+else:
+	api_key = input("paste your api key: ")
+	print("\nprotip: make a file called api.txt in the same folder as the script with your api key in it so you dont have to type it every time\n")
 
 base = "https://localts.store/v1/"
 headers = {'X-API-Key': api_key}
