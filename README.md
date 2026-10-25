@@ -3,7 +3,7 @@ Python script to automatically purchase an alt from localts when it's in stock, 
 
 # How to run
 ## Step 1
-Make sure python is installed, clone the repository
+Make sure python is installed, as well as the requests library (to install it, you run "pip install requests", then clone the repository
 ## Step 2
 In your terminal, run "python main.py"
 ## Step 3
